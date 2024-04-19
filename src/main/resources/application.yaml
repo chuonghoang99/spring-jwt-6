@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: spring-jwt-6
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: chuonghoang
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  flyway:
+    locations:
+      classpath:/db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    path: /
+
+
+
+
+
