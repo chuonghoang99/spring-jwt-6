@@ -1,9 +1,13 @@
+server:
+  port: 80
+
 spring:
   application:
     name: spring-jwt-6
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: chuonghoang
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${POSTGRES_USER:chuonghoang}
+    password: ${POSTGRES_PASSWORD:password}
   jpa:
     properties:
       hibernate:

@@ -13,11 +13,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Builder
-public class ForgotPassword {
+@Table(name = "tbl_forgot_password")
+public class ForgotPassword extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer fpid;
+
 
     @Column(nullable = false)
     private Integer otp;

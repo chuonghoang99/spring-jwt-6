@@ -13,11 +13,10 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RefreshToken {
+@Table(name = "tbl_refresh_token")
+public class RefreshToken extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tokenId;
+
 
     @Column(nullable = false, length = 500)
     private String refreshToken;

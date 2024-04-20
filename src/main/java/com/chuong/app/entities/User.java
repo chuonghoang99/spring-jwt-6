@@ -13,19 +13,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "tbl_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+public class User extends AbstractEntity implements UserDetails {
 
     @NotBlank(message = "The name field can't be not blank.")
     private String name;
@@ -46,6 +44,10 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy =
+            "user")
+    private Set<Address> addresses = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
     private RefreshToken refreshToken;
@@ -93,6 +95,18 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void saveAddress(Address address) {
+        if (address != null) {
+            if (addresses == null) {
+                addresses = new HashSet<>();
+            }
+            addresses.add(address);
+            address.setUser(this); // save user_id
+        }
+    }
+
+
 }
 
 

@@ -1,0 +1,40 @@
+version: '1.0'
+
+services:
+  postgres-db:
+    container_name: postgres-db-container
+    image: postgres:latest
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+      - .env
+    environment:
+      - API_TITLE=API doc dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - network-test
+
+
+  backend:
+    container_name: backend-container
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '80:8080'
+    networks:
+      - network-test
+
+volumes:
+  postgres-db:
+    driver: local
+
+networks:
+  network-test:
+    driver: bridge

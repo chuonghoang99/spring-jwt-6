@@ -46,7 +46,7 @@ public class AuthController {
 
         return new ResponseData<>(HttpStatus.OK.value(), Translator.toLocale((
                 "login.success"
-        )));
+        )),data);
     }
 
     @PostMapping("/refresh")

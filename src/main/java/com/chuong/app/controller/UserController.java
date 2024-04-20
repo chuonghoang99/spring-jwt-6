@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -39,5 +41,12 @@ public class UserController {
     @Message(value = "xxxxx")
     public UserResponse getUserDetail(@RequestParam long id) {
         return userService.getUserDetail(id);
+    }
+
+    @GetMapping("/list")
+    @Operation(summary = "Get user list")
+    public List<UserResponse> getUserList(@RequestParam(defaultValue = "1") int pageIndex ,
+                                          @RequestParam(defaultValue = "10") int pageSize) {
+        return  userService.getUserList(pageIndex, pageSize );
     }
 }
