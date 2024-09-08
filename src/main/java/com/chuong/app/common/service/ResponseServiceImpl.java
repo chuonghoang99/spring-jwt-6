@@ -4,6 +4,8 @@ import com.chuong.app.common.exception.CommandException;
 import com.chuong.app.common.exception.TranslatedCommandException;
 import com.chuong.app.common.response.ErrorResponse;
 import com.chuong.app.common.response.SuccessResponse;
+import io.micrometer.tracing.Tracer;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResponseServiceImpl implements ResponseService {
     private final TranslateService translateService;
-    private String tracer;
+    private Tracer tracer;
 
     public ResponseServiceImpl(final TranslateService translateService) {
         this.translateService = translateService;
@@ -22,7 +24,7 @@ public class ResponseServiceImpl implements ResponseService {
     @Autowired(
             required = false
     )
-    public void setTracer(String tracer) {
+    public void setTracer(Tracer tracer) {
         this.tracer = tracer;
     }
 
@@ -57,6 +59,6 @@ public class ResponseServiceImpl implements ResponseService {
             return null;
         }
 
-        return "123";
+        return MDC.get("traceId");
     }
 }

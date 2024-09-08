@@ -18,6 +18,7 @@ public class ForgotPasswordController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
+
     public ForgotPasswordController(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;

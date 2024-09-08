@@ -21,7 +21,13 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleException(Exception ex, HttpServletRequest request) {
         log.error("Failed to handle request " + request.getRequestURI() + ": " + ex.getMessage(), ex);
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ProblemDetail handleResourceNotFoundEx(Exception ex,
+                                      HttpServletRequest request) {
+        log.error("Failed to handle request " + request.getRequestURI() + ": " + ex.getMessage(), ex);
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
 

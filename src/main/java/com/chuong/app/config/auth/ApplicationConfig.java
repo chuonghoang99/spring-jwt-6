@@ -1,6 +1,7 @@
 package com.chuong.app.config.auth;
 
-import com.chuong.app.exceptions.UsernameNotFoundException;
+
+import com.chuong.app.exceptions.ResourceNotFoundException;
 import com.chuong.app.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found with emai : " + username));
+        return username -> userRepository.findByEmail(username).orElseThrow(() -> new ResourceNotFoundException("User not found with emai : " + username));
     }
 
     @Bean

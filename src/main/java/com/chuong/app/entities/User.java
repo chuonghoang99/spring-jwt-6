@@ -1,13 +1,12 @@
 package com.chuong.app.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class User extends AbstractEntity implements UserDetails {
 
@@ -47,9 +47,11 @@ public class User extends AbstractEntity implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy =
             "user")
+    @JsonIgnore
     private Set<Address> addresses = new HashSet<>();
 
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     private RefreshToken refreshToken;
 
     private boolean isAccountNonExpired;
@@ -94,16 +96,6 @@ public class User extends AbstractEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void saveAddress(Address address) {
-        if (address != null) {
-            if (addresses == null) {
-                addresses = new HashSet<>();
-            }
-            addresses.add(address);
-            address.setUser(this); // save user_id
-        }
     }
 
 

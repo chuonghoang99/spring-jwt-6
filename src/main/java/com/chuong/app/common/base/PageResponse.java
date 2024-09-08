@@ -1,11 +1,18 @@
 package com.chuong.app.common.base;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.chuong.app.common.paging.TPage;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PageResponse<T> implements TPage<T> {
+@Builder
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class PageResponse<T> implements TPage<T>, Serializable {
     private List<T> content;
     private int page;
     private int size;
@@ -14,12 +21,8 @@ public class PageResponse<T> implements TPage<T> {
     private int totalPages;
     private int numberOfElements;
 
-    public PageResponse() {
-    }
 
-    @JsonProperty(
-            index = 0
-    )
+    @JsonProperty(index = 0)
     public List<T> getContent() {
         return this.content;
     }
@@ -28,9 +31,7 @@ public class PageResponse<T> implements TPage<T> {
         this.content = content;
     }
 
-    @JsonProperty(
-            index = 1
-    )
+    @JsonProperty(index = 1)
     public int getPage() {
         return this.page;
     }
@@ -39,9 +40,7 @@ public class PageResponse<T> implements TPage<T> {
         this.page = page;
     }
 
-    @JsonProperty(
-            index = 2
-    )
+    @JsonProperty(index = 2)
     public int getSize() {
         return this.size;
     }
@@ -50,17 +49,12 @@ public class PageResponse<T> implements TPage<T> {
         this.size = size;
     }
 
-    @JsonProperty(
-            value = "sort",
-            index = 3
-    )
+    @JsonProperty(value = "sort", index = 3)
     public String getTSort() {
         return this.sort;
     }
 
-    @JsonProperty(
-            index = 4
-    )
+    @JsonProperty(index = 4)
     public long getTotalElements() {
         return this.totalElements;
     }
@@ -69,9 +63,7 @@ public class PageResponse<T> implements TPage<T> {
         this.totalElements = totalElements;
     }
 
-    @JsonProperty(
-            index = 5
-    )
+    @JsonProperty(index = 5)
     public int getTotalPages() {
         return this.totalPages;
     }
@@ -80,9 +72,7 @@ public class PageResponse<T> implements TPage<T> {
         this.totalPages = totalPages;
     }
 
-    @JsonProperty(
-            index = 6
-    )
+    @JsonProperty(index = 6)
     public int getNumberOfElements() {
         return this.numberOfElements;
     }

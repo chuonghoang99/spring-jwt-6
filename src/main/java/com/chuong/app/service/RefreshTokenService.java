@@ -3,8 +3,8 @@ package com.chuong.app.service;
 
 import com.chuong.app.entities.RefreshToken;
 import com.chuong.app.entities.User;
+import com.chuong.app.exceptions.ResourceNotFoundException;
 import com.chuong.app.exceptions.TokenException;
-import com.chuong.app.exceptions.UsernameNotFoundException;
 import com.chuong.app.repositories.RefreshTokenRepository;
 import com.chuong.app.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,9 @@ public class RefreshTokenService {
 
     public RefreshToken createRefreshToken(String email) {
 
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
+        User user =
+                userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException(
+                        "User not found with email : " + email));
 
         RefreshToken refreshToken = user.getRefreshToken();
 
